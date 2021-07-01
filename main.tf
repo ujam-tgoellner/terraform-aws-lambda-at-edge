@@ -131,7 +131,7 @@ data aws_iam_policy_document lambda_logs_policy_doc {
  * Attach the policy giving log write access to the IAM Role
  */
 resource aws_iam_role_policy logs_role_policy {
-  name   = "${var.name}at-edge"
+  name   = "${local.san_name}at-edge"
   role   = aws_iam_role.lambda_at_edge.id
   policy = data.aws_iam_policy_document.lambda_logs_policy_doc.json
 }
