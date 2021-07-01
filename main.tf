@@ -6,6 +6,10 @@
  * Lambdas are uploaded to via zip files, so we create a zip out of a given directory.
  * In the future, we may want to source our code from an s3 bucket instead of a local zip.
  */
+locals {
+    san_name = replace(var.name, "/[^0-9a-zA-Z_]/", "_")
+}
+
 data archive_file zip_file_for_lambda {
   type        = "zip"
   output_path = "${var.name}.zip"
@@ -99,7 +103,7 @@ data aws_iam_policy_document assume_role_policy_doc {
  * This policy also has permissions to write logs to CloudWatch.
  */
 resource aws_iam_role lambda_at_edge {
-  name               = "${var.name}-role"
+  name               = "${local.san_name}-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy_doc.json
   tags               = var.tags
 }
