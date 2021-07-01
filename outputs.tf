@@ -9,3 +9,6 @@ output "function_arn" {
 output "function_name" {
   value = var.name
 }
+output "function_role_id" {
+  value = aws_iam_role.lambda_at_edge.id
+}
